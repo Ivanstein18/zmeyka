@@ -39,12 +39,14 @@ namespace змейка
 
             for (int i = 0; i < len; i++)
             {
-                g.FillEllipse(greenBrush, snake[i].X, snake[i].Y, snake[i].X + 10, snake[i].Y + 10);
-                if (direction == "up") snake[i].Y -= 10;
-                if (direction == "down") snake[i].Y += 10;
-                if (direction == "left") snake[i].X -= 10;
-                if (direction == "right") snake[i].Y += 10;
+                g.FillEllipse(greenBrush, snake[i].X*10, snake[i].Y*10,10,10);
+                if (direction == "up") snake[i].Y -= 1;
+                if (direction == "down") snake[i].Y += 1;
+                if (direction == "left") snake[i].X -= 1;
+                if (direction == "right") snake[i].X += 1;
             }
+
+            pictureBox1.Invalidate();
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
