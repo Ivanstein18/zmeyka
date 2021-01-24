@@ -19,17 +19,32 @@ namespace змейка
             snake = new Point[10000];
             int wight = pictureBox1.Width / 10;
             int height = pictureBox1.Height / 10;
+            snake[0].X = wight / 2;
+            snake[0].Y = wight / 2;
+            b = new SolidBrush(Color.White);
+            greenBrush = new SolidBrush(Color.Green);
 
         }
 
         Point[] snake;
         string direction = "up";
         int len = 1;
+        SolidBrush b;
+        SolidBrush greenBrush;
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             Graphics g = Graphics.FromImage(pictureBox1.Image);
+            g.FillRectangle(b, 0, 0, pictureBox1.Width, pictureBox1.Height);
 
+            for (int i = 0; i < len; i++)
+            {
+                g.FillEllipse(greenBrush, snake[i].X, snake[i].Y, snake[i].X + 10, snake[i].Y + 10);
+                if (direction == "up") snake[i].Y -= 10;
+                if (direction == "down") snake[i].Y += 10;
+                if (direction == "left") snake[i].X -= 10;
+                if (direction == "right") snake[i].Y += 10;
+            }
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
