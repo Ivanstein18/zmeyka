@@ -25,6 +25,8 @@ namespace змейка
             greenBrush = new SolidBrush(Color.Green);
             blackBrush = new SolidBrush(Color.Black);
             r = new Random();
+            score = 0;
+            maxScore = 0;
             apple.X = r.Next(0, wight-1);
             apple.Y = r.Next(0, height-1);
 
@@ -37,6 +39,7 @@ namespace змейка
         int len = 1;
         int wight;
         int height;
+        int score, maxScore;
         SolidBrush whiteBrush;
         SolidBrush greenBrush;
         SolidBrush blackBrush;
@@ -45,6 +48,9 @@ namespace змейка
         {
             Graphics g = Graphics.FromImage(pictureBox1.Image);
             g.FillRectangle(whiteBrush, 0, 0, pictureBox1.Width, pictureBox1.Height);
+
+            Text = $"{score}/{maxScore}";
+            if (score > maxScore) maxScore = score;
 
             for (int i = 0; i < len; i++)
             {
@@ -59,6 +65,7 @@ namespace змейка
                 if (apple.X == snake[i].X && apple.Y == snake[i].Y)
                 {
                     len++;
+                    score++;                    
                     apple.X = r.Next(0, wight-1);
                     apple.Y = r.Next(0, height-1);
                 }
@@ -72,6 +79,7 @@ namespace змейка
                     if (snake[i] == snake[j])
                     {
                         len = 3;
+                        score = 0;
                         timer1.Interval = 100;
                     }
                 }
