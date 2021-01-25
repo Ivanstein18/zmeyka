@@ -51,7 +51,8 @@ namespace змейка
             Graphics g = Graphics.FromImage(pictureBox1.Image);
             g.FillRectangle(whiteBrush, 0, 0, pictureBox1.Width, pictureBox1.Height);
 
-            Score(ref score, ref maxScore, ref tempScore);
+            if (score > tempScore) tempScore = score;
+            if (score == 0) maxScore = tempScore;
 
             Text = $"{score}/{maxScore}";
             
@@ -107,14 +108,7 @@ namespace змейка
 
         pictureBox1.Invalidate();
         }
-
-        public void Score(ref int score, ref int maxScore, ref int tempScore)
-        {
-            if (score > tempScore) tempScore = score;
-            if (score == 0) maxScore = tempScore;
-            
-        }
-
+        
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             if(e.KeyCode == Keys.Up)
