@@ -27,7 +27,8 @@ namespace змейка
             blackBrush = new SolidBrush(Color.Black);
             r = new Random();
             score = 0;
-            
+            maxScore = 0;
+            tempScore = 0;
             apple.X = r.Next(0, wight-1);
             apple.Y = r.Next(0, height-1);
 
@@ -40,7 +41,7 @@ namespace змейка
         int len = 1;
         int wight;
         int height;
-        int score, maxScore;
+        int score, maxScore, tempScore;
         SolidBrush whiteBrush;
         SolidBrush greenBrush;
         SolidBrush blackBrush;
@@ -49,9 +50,11 @@ namespace змейка
         {
             Graphics g = Graphics.FromImage(pictureBox1.Image);
             g.FillRectangle(whiteBrush, 0, 0, pictureBox1.Width, pictureBox1.Height);
-            maxScore = Score(ref score);
+
+            Score(ref score, ref maxScore, ref tempScore);
+
             Text = $"{score}/{maxScore}";
-            //if (score > maxScore) maxScore = score;
+            
 
             for (int i = 0; i < len; i++)
             {
@@ -105,13 +108,11 @@ namespace змейка
         pictureBox1.Invalidate();
         }
 
-        public int Score(ref int score)
+        public void Score(ref int score, ref int maxScore, ref int tempScore)
         {
-            int maxScore = 0;
-            int tempScore = 0;
-            if (score > maxScore) maxScore = score;
-            if (score == 0) tempScore = maxScore;
-            return tempScore;
+            if (score > tempScore) tempScore = score;
+            if (score == 0) maxScore = tempScore;
+            
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
