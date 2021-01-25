@@ -21,32 +21,42 @@ namespace змейка
             int height = pictureBox1.Height / 10;
             snake[0].X = wight / 2;
             snake[0].Y = wight / 2;
-            b = new SolidBrush(Color.White);
+            whiteBrush = new SolidBrush(Color.White);
             greenBrush = new SolidBrush(Color.Green);
+            blackBrush = new SolidBrush(Color.Black);
 
         }
 
         Point[] snake;
         string direction = "up";
         int len = 1;
-        SolidBrush b;
+        SolidBrush whiteBrush;
         SolidBrush greenBrush;
+        SolidBrush blackBrush;
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             Graphics g = Graphics.FromImage(pictureBox1.Image);
-            g.FillRectangle(b, 0, 0, pictureBox1.Width, pictureBox1.Height);
+            g.FillRectangle(whiteBrush, 0, 0, pictureBox1.Width, pictureBox1.Height);
 
             for (int i = 0; i < len; i++)
-            {
-                g.FillEllipse(greenBrush, snake[i].X*10, snake[i].Y*10,10,10);
-                if (direction == "up") snake[i].Y -= 1;
-                if (direction == "down") snake[i].Y += 1;
-                if (direction == "left") snake[i].X -= 1;
-                if (direction == "right") snake[i].X += 1;
-            }
+                g.FillEllipse(blackBrush, snake[i].X*10, snake[i].Y*10,10,10);
 
-            pictureBox1.Invalidate();
+                if (direction == "up") snake[0].Y -= 1;
+                if (direction == "down") snake[0].Y += 1;
+                if (direction == "left") snake[0].X -= 1;
+                if (direction == "right") snake[0].X += 1;
+
+            if (len > 10000 - 3) len = 10000 - 3;
+
+            for (int i = len; i >= 0; i--)
+            {
+                snake[i + 1].X = snake[i].X;
+                snake[i + 1].Y = snake[i].Y;
+            }
+            if (len < 4) len++;
+
+        pictureBox1.Invalidate();
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
